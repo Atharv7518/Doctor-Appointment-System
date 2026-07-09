@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Doctor Appointments</title>
+
+</head>
+
+<body>
+
+<h2>Doctor Appointments</h2>
+
+<table border="1">
+
+<tr>
+
+<th>Patient</th>
+
+<th>Date</th>
+
+<th>Time</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+{% for appointment in appointments %}
+
+<tr>
+
+<td>
+
+{{ appointment.patient.first_name }}
+
+{{ appointment.patient.last_name }}
+
+</td>
+
+<td>
+
+{{ appointment.appointment_date }}
+
+</td>
+
+<td>
+
+{{ appointment.appointment_time }}
+
+</td>
+
+<td>
+
+{{ appointment.status }}
+
+</td>
+
+<td>
+
+<a href="/appointment/approve/{{appointment.appointment_id}}">
+
+Approve
+
+</a>
+
+|
+
+<a href="/appointment/reject/{{appointment.appointment_id}}">
+
+Reject
+
+</a>
+
+|
+
+<a href="/prescription/write/{{appointment.appointment_id}}/">
+
+Write Prescription
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+
+</html>

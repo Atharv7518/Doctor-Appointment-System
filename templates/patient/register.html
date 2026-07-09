@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Registration</title>
+</head>
+
+<body>
+
+<h2>Patient Registration</h2>
+
+{% if success %}
+
+<p style="color:green">
+
+{{ success }}
+
+</p>
+
+{% endif %}
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <label>First Name</label><br>
+    <input type="text" name="first_name"><br><br>
+
+    <label>Last Name</label><br>
+    <input type="text" name="last_name"><br><br>
+
+    <label>Gender</label><br>
+
+    <select name="gender">
+
+        <option value="Male">Male</option>
+
+        <option value="Female">Female</option>
+
+        <option value="Other">Other</option>
+
+    </select>
+
+    <br><br>
+
+    <label>Date of Birth</label><br>
+
+    <input type="date" name="dob">
+
+    <br><br>
+
+    <label>Phone</label><br>
+
+    <input type="text" name="phone">
+
+    <br><br>
+
+    <label>Email</label><br>
+
+    <input type="email" name="email">
+
+    <br><br>
+
+    <label>Password</label><br>
+
+    <input type="password" name="password">
+
+    <br><br>
+
+    <label>Address</label><br>
+
+    <textarea name="address"></textarea>
+
+    <br><br>
+
+    <button type="submit">
+
+        Register
+
+    </button>
+
+</form>
+
+</body>
+</html>

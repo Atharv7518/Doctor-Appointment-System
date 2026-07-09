@@ -1,13 +1,24 @@
 from django.db import models
 
+
 class Patient(models.Model):
+
+    GENDER_CHOICES = [
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+        ('Other', 'Other'),
+    ]
+
     patient_id = models.AutoField(primary_key=True)
 
     first_name = models.CharField(max_length=50)
 
     last_name = models.CharField(max_length=50)
 
-    gender = models.CharField(max_length=10)
+    gender = models.CharField(
+        max_length=10,
+        choices=GENDER_CHOICES
+    )
 
     dob = models.DateField()
 
@@ -21,5 +32,5 @@ class Patient(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self): #This controls how the object appears in the Django Admin panel.
-        return f"{self.first_name} {self.last_name}" 
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"

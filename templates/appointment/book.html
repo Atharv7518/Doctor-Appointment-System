@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Appointment</title>
+</head>
+
+<body>
+
+    <form method="GET">
+
+<label>Search Doctor</label>
+
+<select name="specialization">
+
+<option value="">All</option>
+
+<option value="Cardiologist">Cardiologist</option>
+
+<option value="Dermatologist">Dermatologist</option>
+
+<option value="Neurologist">Neurologist</option>
+
+<option value="Orthopedic">Orthopedic</option>
+
+<option value="Dentist">Dentist</option>
+
+<option value="General Physician">General Physician</option>
+
+</select>
+
+<button type="submit">
+
+Search
+
+</button>
+
+</form>
+
+<hr>
+
+<h2>Book Appointment</h2>
+
+{% if success %}
+<p style="color:green;">
+{{ success }}
+</p>
+{% endif %}
+
+<form method="POST">
+
+{% csrf_token %}
+
+<label>Select Doctor</label><br>
+
+<select name="doctor">
+
+{% for doctor in doctors %}
+
+<option value="{{ doctor.doctor_id }}">
+
+Dr. {{ doctor.first_name }} {{ doctor.last_name }}
+
+({{ doctor.specialization }})
+
+</option>
+
+{% endfor %}
+
+</select>
+
+<br><br>
+
+<label>Date</label><br>
+
+<input type="date"
+name="appointment_date">
+
+<br><br>
+
+<label>Time</label><br>
+
+<input type="time"
+name="appointment_time">
+
+<br><br>
+
+<label>Symptoms</label><br>
+
+<textarea
+name="symptoms"></textarea>
+
+<br><br>
+
+<button>
+
+Book Appointment
+
+</button>
+
+</form>
+
+{% if error %}
+
+<p style="color:red">
+
+{{ error }}
+
+</p>
+
+{% endif %}
+
+</body>
+</html>

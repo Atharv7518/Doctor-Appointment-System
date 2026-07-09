@@ -1,0 +1,59 @@
+<table border="1">
+
+<tr>
+
+<th>Doctor</th>
+
+<th>Diagnosis</th>
+
+<th>Medicine</th>
+
+<th>Next Visit</th>
+
+<th>Download</th>
+
+</tr>
+
+{% for p in prescriptions %}
+
+<tr>
+
+<td>
+
+Dr. {{ p.appointment.doctor.first_name }}
+
+</td>
+
+<td>
+
+{{ p.diagnosis }}
+
+</td>
+
+<td>
+
+{{ p.medicines }}
+
+</td>
+
+<td>
+
+{{ p.next_visit }}
+
+</td>
+
+<td>
+
+<a href="/prescription/download/{{ p.prescription_id }}/">
+
+Download PDF
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
