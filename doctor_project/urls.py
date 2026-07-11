@@ -4,7 +4,7 @@ from django.views.generic.base import RedirectView # Add this import
 from django.conf import settings # Add this import
 from django.conf.urls.static import static # Add this import
 from django.contrib.staticfiles.storage import staticfiles_storage
-from . import views
+from website import views
 
 urlpatterns = [
 
