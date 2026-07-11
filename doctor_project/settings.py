@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
+import certifi
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -92,6 +93,13 @@ DATABASES = {
     }
 }
 
+# If the app is using the cloud database, force a secure SSL connection
+if os.environ.get('DB_HOST', 'localhost') != 'localhost':
+    DATABASES['default']['OPTIONS'] = {
+        'ssl': {
+            'ca': certifi.where(),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
