@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,11 +82,12 @@ WSGI_APPLICATION = 'doctor_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'doctor_appointment_db',
-        'USER': 'root',
-        'PASSWORD': 'AtharvShukla751@',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        # It will look for the Vercel variable first. If it doesn't find it, it uses your local settings.
+        'NAME': os.environ.get('DB_NAME', 'doctor_appointment_db'),
+        'USER': os.environ.get('DB_USER', '3pJS1yvqu52QZFH.root'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'f1oGUjCBmdUXDo8r'),
+        'HOST': os.environ.get('DB_HOST', 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com'),
+        'PORT': os.environ.get('DB_PORT', '4000'),
     }
 }
 
