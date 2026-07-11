@@ -11,3 +11,6 @@ def login_page(request):
 
 def register_page(request):
     return render(request, 'register.html')
+
+def under_development(request):
+    return render(request, 'under_development.html')

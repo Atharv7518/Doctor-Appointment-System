@@ -3,6 +3,7 @@ from django.urls import path, include
 from django.views.generic.base import RedirectView # Add this import
 from django.conf import settings # Add this import
 from django.conf.urls.static import static # Add this import
+from . import views
 
 urlpatterns = [
 

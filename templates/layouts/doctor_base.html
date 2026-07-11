@@ -99,41 +99,37 @@
     <!-- 3. YOUR INTERCEPTOR SCRIPT (UPDATED) -->
     <script>
     document.addEventListener("DOMContentLoaded", () => {
-        // Initialize the Bootstrap Modal
-        const comingSoonModal = new bootstrap.Modal(document.getElementById('comingSoonModal'));
+    const modalElement = document.getElementById('comingSoonModal');
+    if (!modalElement) return; 
 
-        // --- PART 1: Catch Unbuilt Links (Ignoring Dropdowns) ---
-        const unbuiltLinks = document.querySelectorAll(`
-            a[href="#"]:not([data-bs-toggle]), 
-            .coming-soon, 
-            a[href^="/specialties/"], 
-            a[href^="/doctor/sarah-jenkins"],
-            a[href^="/doctor/michael-chen"],
-            a[href^="/doctor/emily-torres"],
-            a[href^="/doctor/james-wilson"],
-        `);
+    const comingSoonModal = new bootstrap.Modal(modalElement);
 
-        unbuiltLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault(); // Stop the page from changing
-                comingSoonModal.show(); 
-            });
-        });
+    // 1. Catch links
+    const unbuiltLinks = document.querySelectorAll(`
+        a[href="#"]:not([data-bs-toggle]), 
+        .coming-soon, 
+        a[href^="/specialties/"], 
+        a[href^="/doctor/"]
+    `);
 
-        // --- PART 2: Catch Unbuilt Forms ---
-        const unbuiltForms = document.querySelectorAll(`
-            form[action="/search/"],
-            form.coming-soon-form
-        `);
-
-        unbuiltForms.forEach(form => {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault(); // Stop the form from submitting
-                comingSoonModal.show(); 
-            });
+    unbuiltLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); 
+            comingSoonModal.show(); 
         });
     });
-    </script>
+
+    // 2. Catch forms
+    const unbuiltForms = document.querySelectorAll('form[action="/search/"], form.coming-soon-form');
+
+    unbuiltForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            comingSoonModal.show(); 
+        });
+    });
+});
+</script>
     
     {% block extra_js %}{% endblock %}
 </body>

@@ -76,45 +76,38 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     
     <!-- 3. Safe Interceptor Script -->
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        // Ensure the modal exists before trying to use it to prevent crashes
-        const modalElement = document.getElementById('comingSoonModal');
-        if (!modalElement) return; 
+document.addEventListener("DOMContentLoaded", () => {
+    const modalElement = document.getElementById('comingSoonModal');
+    if (!modalElement) return; 
 
-        const comingSoonModal = new bootstrap.Modal(modalElement);
+    const comingSoonModal = new bootstrap.Modal(modalElement);
 
-        // Catch links, but IGNORE dropdown toggles
-        const unbuiltLinks = document.querySelectorAll(`
-            a[href="#"]:not([data-bs-toggle]), 
-            .coming-soon, 
-            a[href^="/specialties/"], 
-            a[href^="/doctor/sarah-jenkins"],
-            a[href^="/doctor/michael-chen"],
-            a[href^="/doctor/emily-torres"],
-            a[href^="/doctor/james-wilson"],
-        `);
+    // 1. Catch links
+    const unbuiltLinks = document.querySelectorAll(`
+        a[href="#"]:not([data-bs-toggle]), 
+        .coming-soon, 
+        a[href^="/specialties/"], 
+        a[href^="/doctor/"]
+    `);
 
-        unbuiltLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault(); 
-                comingSoonModal.show(); 
-            });
-        });
-
-        // Catch forms
-        const unbuiltForms = document.querySelectorAll(`
-            form[action="/search/"],
-            form.coming-soon-form
-        `);
-
-        unbuiltForms.forEach(form => {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault(); 
-                comingSoonModal.show(); 
-            });
+    unbuiltLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); 
+            comingSoonModal.show(); 
         });
     });
-    </script>
+
+    // 2. Catch forms
+    const unbuiltForms = document.querySelectorAll('form[action="/search/"], form.coming-soon-form');
+
+    unbuiltForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            comingSoonModal.show(); 
+        });
+    });
+});
+</script>
 
 </body>
 </html>
