@@ -1,0 +1,56 @@
+/* patient/dashboard.css */
+
+:root {
+    --brand-primary: #0052CC;
+    --brand-accent: #3B82F6;
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --card-hover-shadow: 0 12px 24px rgba(0, 82, 204, 0.15);
+}
+
+body {
+    background-color: #F8FAFC; /* Light gray background to make white cards pop */
+}
+
+/* Welcome Banner Styling */
+.welcome-banner {
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
+}
+
+.welcome-banner .bg-icon {
+    font-size: 10rem;
+    color: rgba(255, 255, 255, 0.1);
+    right: -20px;
+    bottom: -40px;
+    transform: rotate(-15deg);
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffffff;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--card-hover-shadow) !important;
+}
+
+/* Icon Wrappers */
+.icon-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.dashboard-card:hover .icon-wrapper {
+    transform: scale(1.1);
+}
+
+/* Bootstrap Subtle Color Overrides (if Bootstrap 5.3 isn't fully active) */
+.bg-primary-subtle { background-color: #E0F2FE; }
+.bg-info-subtle { background-color: #CFFAFE; }
+.bg-success-subtle { background-color: #DCFCE7; }
