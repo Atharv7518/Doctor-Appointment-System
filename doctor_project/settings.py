@@ -84,7 +84,6 @@ WSGI_APPLICATION = 'doctor_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        # It will look for the Vercel variable first. If it doesn't find it, it uses your local settings.
         'NAME': os.environ.get('DB_NAME', 'doctor_appointment_db'),
         'USER': os.environ.get('DB_USER', '3pJS1yvqu52QZFH.root'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'f1oGUjCBmdUXDo8r'),
@@ -93,7 +92,8 @@ DATABASES = {
         'OPTIONS': {
             'ssl': {
                 'ca': certifi.where(),
-        }    }
+            }
+        }
     }
 }
 
