@@ -90,16 +90,12 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASSWORD', 'f1oGUjCBmdUXDo8r'),
         'HOST': os.environ.get('DB_HOST', 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com'),
         'PORT': os.environ.get('DB_PORT', '4000'),
+        'OPTIONS': {
+            'ssl': {
+                'ca': certifi.where(),
+        }    }
     }
 }
-
-# If the app is using the cloud database, force a secure SSL connection
-if os.environ.get('DB_HOST', 'localhost') != 'localhost':
-    DATABASES['default']['OPTIONS'] = {
-        'ssl': {
-            'ca': certifi.where(),
-        }
-    }
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
