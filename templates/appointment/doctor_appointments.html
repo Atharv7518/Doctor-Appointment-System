@@ -1,95 +1,87 @@
-<!DOCTYPE html>
+{% extends 'layouts/doctor_base.html' %}
+{% load static %}
 
-<html>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/theme.css' %}">
+{% endblock %}
 
-<head>
+{% block title %}Appointments | Doctor Portal{% endblock %}
 
-<title>Doctor Appointments</title>
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="fw-bold text-dark mb-0">Patient Queue</h4>
+</div>
 
-</head>
-
-<body>
-
-<h2>Doctor Appointments</h2>
-
-<table border="1">
-
-<tr>
-
-<th>Patient</th>
-
-<th>Date</th>
-
-<th>Time</th>
-
-<th>Status</th>
-
-<th>Action</th>
-
-</tr>
-
-{% for appointment in appointments %}
-
-<tr>
-
-<td>
-
-{{ appointment.patient.first_name }}
-
-{{ appointment.patient.last_name }}
-
-</td>
-
-<td>
-
-{{ appointment.appointment_date }}
-
-</td>
-
-<td>
-
-{{ appointment.appointment_time }}
-
-</td>
-
-<td>
-
-{{ appointment.status }}
-
-</td>
-
-<td>
-
-<a href="/appointment/approve/{{appointment.appointment_id}}">
-
-Approve
-
-</a>
-
-|
-
-<a href="/appointment/reject/{{appointment.appointment_id}}">
-
-Reject
-
-</a>
-
-|
-
-<a href="/prescription/write/{{appointment.appointment_id}}/">
-
-Write Prescription
-
-</a>
-
-</td>
-
-</tr>
-
-{% endfor %}
-
-</table>
-
-</body>
-
-</html>
+<div class="card border-0 shadow-tight rounded-3 overflow-hidden">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="bg-light text-muted small text-uppercase tracking-wide">
+                <tr>
+                    <th class="ps-4 py-2 fw-bold">Patient</th>
+                    <th class="py-2 fw-bold">Schedule</th>
+                    <th class="py-2 fw-bold">Status</th>
+                    <th class="pe-4 py-2 fw-bold text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                <tr>
+                    <td class="ps-4 py-2">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-initial bg-gradient-emerald text-white me-2" style="width: 32px; height: 32px; font-size: 0.75rem;">
+                                {{ appointment.patient.first_name|slice:":1" }}{{ appointment.patient.last_name|slice:":1" }}
+                            </div>
+                            <div class="fw-bold text-dark small lh-sm">
+                                {{ appointment.patient.first_name }} {{ appointment.patient.last_name }}
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-2 lh-sm">
+                        <div class="text-dark small fw-bold">{{ appointment.appointment_date }}</div>
+                        <small class="text-muted">{{ appointment.appointment_time }}</small>
+                    </td>
+                    <td class="py-2">
+                        {% if appointment.status == 'Pending' %}
+                            <span class="text-warning small fw-bold"><i class="fa-solid fa-circle me-1" style="font-size:0.5rem;"></i>Pending</span>
+                        {% elif appointment.status == 'Approved' %}
+                            <span class="text-success small fw-bold"><i class="fa-solid fa-circle me-1" style="font-size:0.5rem;"></i>Approved</span>
+                        {% elif appointment.status == 'Rejected' %}
+                            <span class="text-danger small fw-bold"><i class="fa-solid fa-circle me-1" style="font-size:0.5rem;"></i>Rejected</span>
+                        {% elif appointment.status == 'Completed' %}
+                            <span class="text-info small fw-bold"><i class="fa-solid fa-circle me-1" style="font-size:0.5rem;"></i>Completed</span>
+                        {% endif %}
+                    </td>
+                    <td class="pe-4 py-2 text-end">
+                        <div class="btn-group shadow-none" role="group">
+                            {% if appointment.status == 'Pending' %}
+                                <a href="{% url 'approve' appointment.appointment_id %}" class="btn btn-sm btn-outline-success fw-bold px-2 py-0" title="Approve">
+                                    <i class="fa-solid fa-check"></i>
+                                </a>
+                                <a href="{% url 'reject' appointment.appointment_id %}" class="btn btn-sm btn-outline-danger fw-bold px-2 py-0" title="Reject">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </a>
+                            {% elif appointment.status == 'Approved' %}
+                                <a href="{% url 'complete' appointment.appointment_id %}" class="btn btn-sm btn-outline-info fw-bold px-2 py-0" title="Mark Completed">
+                                    <i class="fa-solid fa-check-double"></i>
+                                </a>
+                                <a href="/prescription/write/{{ appointment.appointment_id }}/" class="btn btn-sm btn-primary fw-bold px-2 py-0" title="Write Prescription">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            {% else %}
+                                <span class="text-muted small">--</span>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center py-4">
+                        <h6 class="text-muted fw-bold mb-0">No patients in queue.</h6>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

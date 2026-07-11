@@ -1,0 +1,118 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Doctor Appointment System
+
+</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet"
+href="{% static 'css/style.css' %}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+    
+
+{% include 'navbar.html' %}
+
+{% block content %}
+
+{% endblock %}
+
+{% include 'footer.html' %}
+
+<script src="{% static 'js/script.js' %}"></script>
+
+{% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script> {% endcomment %}
+
+<link href="https://fonts.googleapis.com/css2?family=Inter..." >
+
+<!-- 1. The Global Coming Soon Modal -->
+    <div class="modal fade" id="comingSoonModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+          <div class="modal-body p-4 p-md-5 text-center">
+            <div class="mb-4 text-primary opacity-75">
+                <i class="fa-solid fa-person-digging fa-4x"></i>
+            </div>
+            <h4 class="fw-bolder text-dark mb-3 tracking-wide">Feature in Development</h4>
+            <p class="text-muted mb-4">
+                We are working hard behind the scenes to bring this feature to life. Please check back in a future update!
+            </p>
+            <button type="button" class="btn btn-primary px-5 rounded-pill fw-bold" data-bs-dismiss="modal">
+                Got it, thanks!
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Bootstrap JS Bundle (Required for Dropdowns) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- 3. Safe Interceptor Script -->
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Ensure the modal exists before trying to use it to prevent crashes
+        const modalElement = document.getElementById('comingSoonModal');
+        if (!modalElement) return; 
+
+        const comingSoonModal = new bootstrap.Modal(modalElement);
+
+        // Catch links, but IGNORE dropdown toggles
+        const unbuiltLinks = document.querySelectorAll(`
+            a[href="#"]:not([data-bs-toggle]), 
+            .coming-soon, 
+            a[href^="/specialties/"], 
+            a[href^="/doctor/sarah-jenkins"],
+            a[href^="/doctor/michael-chen"],
+            a[href^="/doctor/emily-torres"],
+            a[href^="/doctor/james-wilson"],
+        `);
+
+        unbuiltLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); 
+                comingSoonModal.show(); 
+            });
+        });
+
+        // Catch forms
+        const unbuiltForms = document.querySelectorAll(`
+            form[action="/search/"],
+            form.coming-soon-form
+        `);
+
+        unbuiltForms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                comingSoonModal.show(); 
+            });
+        });
+    });
+    </script>
+
+</body>
+</html>

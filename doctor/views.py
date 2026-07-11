@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Doctor
+from datetime import date
 from appointment.models import Appointment
 
 
@@ -91,23 +92,42 @@ def login_view(request):
     return render(request,'doctor/login.html')
 
 def dashboard(request):
-
+    # Check if doctor is logged in
     if 'doctor_id' not in request.session:
-
         return redirect('doctor_login')
 
+    # Get the logged-in doctor's object
+    doctor_id = request.session['doctor_id']
+    doctor = Doctor.objects.get(doctor_id=doctor_id)
+
+    # 1. Count Today's Visits (Matching today's date)
+    today_visits_count = Appointment.objects.filter(
+        doctor=doctor, 
+        appointment_date=date.today()
+    ).count()
+
+    # 2. Count Completed Appointments
+    completed_count = Appointment.objects.filter(
+        doctor=doctor, 
+        status='Completed'
+    ).count()
+
+    # 3. Count Pending Appointments
+    pending_count = Appointment.objects.filter(
+        doctor=doctor, 
+        status='Pending'
+    ).count()
+
+    # Send the real data to the template
     return render(
-
         request,
-
         'doctor/dashboard.html',
-
         {
-
-            'name':request.session['doctor_name']
-
+            'name': request.session['doctor_name'],
+            'today_visits': today_visits_count,
+            'completed': completed_count,
+            'pending': pending_count
         }
-
     )
     
 def logout_view(request):

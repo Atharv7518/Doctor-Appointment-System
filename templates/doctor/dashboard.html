@@ -1,41 +1,90 @@
-<!DOCTYPE html>
+{% extends 'layouts/doctor_base.html' %}
+{% load static %}
 
-<html>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/theme.css' %}">
+{% endblock %}
 
-<head>
+{% block content %}
+<!-- Compact Overview Card -->
+<div class="card bg-gradient-indigo text-white border-0 shadow-tight rounded-3 mb-4">
+    <div class="card-body p-3 px-4 d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            <div class="avatar-initial avatar-lg bg-white text-primary me-3">
+                Dr
+            </div>
+            <div>
+                <p class="mb-0 text-white-50 small fw-bold text-uppercase tracking-wide">Provider Overview</p>
+                <h3 class="fw-bold mb-0 lh-sm">Dr. {{ name }}</h3>
+            </div>
+        </div>
+        <div class="text-end d-none d-md-block">
+            <a href="/appointment/doctor-appointments/" class="btn btn-light btn-sm rounded-pill px-3 fw-bold shadow-sm text-primary">
+                View Schedule <i class="fa-solid fa-arrow-right ms-1"></i>
+            </a>
+        </div>
+    </div>
+</div>
 
-<title>Doctor Appointments</title>
+<!-- Snappy Stats Grid -->
+<div class="row g-3 mb-4">
+    
+    <!-- Today's Visits -->
+    <div class="col-md-4">
+        <div class="hover-card p-3 d-flex align-items-center h-100">
+            <div class="icon-box bg-primary bg-opacity-10 text-primary me-3">
+                <i class="fa-solid fa-calendar-day fa-lg"></i>
+            </div>
+            <div>
+                <h6 class="text-muted small fw-bold mb-0 tracking-wide text-uppercase">Today's Visits</h6>
+                <!-- Dynamic Data Here -->
+                <h4 class="fw-bold text-dark mb-0 lh-sm">{{ today_visits }}</h4>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Completed -->
+    <div class="col-md-4">
+        <div class="hover-card p-3 d-flex align-items-center h-100">
+            <div class="icon-box bg-success bg-opacity-10 text-success me-3">
+                <i class="fa-solid fa-check-double fa-lg"></i>
+            </div>
+            <div>
+                <h6 class="text-muted small fw-bold mb-0 tracking-wide text-uppercase">Completed</h6>
+                <!-- Dynamic Data Here -->
+                <h4 class="fw-bold text-dark mb-0 lh-sm">{{ completed }}</h4>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pending -->
+    <div class="col-md-4">
+        <div class="hover-card p-3 d-flex align-items-center h-100">
+            <div class="icon-box bg-warning bg-opacity-10 text-warning me-3">
+                <i class="fa-solid fa-clock-rotate-left fa-lg"></i>
+            </div>
+            <div>
+                <h6 class="text-muted small fw-bold mb-0 tracking-wide text-uppercase">Pending</h6>
+                <!-- Dynamic Data Here -->
+                <h4 class="fw-bold text-dark mb-0 lh-sm">{{ pending }}</h4>
+            </div>
+        </div>
+    </div>
+</div>
 
-</head>
-
-<body>
-
-<h2>Doctor Dashboard</h2>
-
-<hr>
-
-<a href="/appointment/doctor-appointments/">
-
-View Appointments
-
-</a>
-
-|
-
-<a href="/doctor/logout/">
-
-Logout
-
-</a>
-
-<hr>
-
-<h3>
-
-Welcome Dr. {{ name }}
-
-</h3>
-
-</body>
-
-</html>
+<!-- Compact Quick Actions -->
+<div class="row g-3">
+    <div class="col-12">
+        <h5 class="fw-bold text-dark mb-1">Queue Management</h5>
+    </div>
+    <div class="col-md-6">
+        <div class="hover-card p-4">
+            <h6 class="fw-bold mb-1">Pending Approvals</h6>
+            <p class="text-muted small mb-3 lh-sm">You have appointment requests waiting for confirmation.</p>
+            <a href="/appointment/doctor-appointments/" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold w-100">
+                Review Requests
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

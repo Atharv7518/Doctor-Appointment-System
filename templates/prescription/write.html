@@ -1,117 +1,86 @@
-<!DOCTYPE html>
+{% extends 'layouts/doctor_base.html' %}
+{% load static %}
 
-<html>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/theme.css' %}">
+{% endblock %}
 
-<head>
+{% block title %}Write Prescription | Vaidyam{% endblock %}
 
-<title>
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        
+        <div class="d-flex align-items-center mb-3">
+            <a href="/appointment/doctor-appointments/" class="btn btn-light btn-sm rounded-circle p-2 me-2 shadow-sm text-secondary" title="Go Back">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <h4 class="fw-bold text-dark mb-0">Issue Prescription</h4>
+        </div>
 
-Write Prescription
+        <div class="card border-0 shadow-tight rounded-3 overflow-hidden">
+            <!-- Vibrant Patient Info Header -->
+            <div class="card-header bg-gradient-emerald text-white p-3 border-0 d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <div class="avatar-initial bg-white text-success me-3" style="width: 40px; height: 40px; font-size: 1rem;">
+                        {{ appointment.patient.first_name|slice:":1" }}{{ appointment.patient.last_name|slice:":1" }}
+                    </div>
+                    <div class="lh-sm">
+                        <span class="small fw-bold text-uppercase tracking-wide text-white-50" style="font-size: 0.65rem;">Patient</span>
+                        <h5 class="fw-bold mb-0">
+                            {{ appointment.patient.first_name }} {{ appointment.patient.last_name }}
+                        </h5>
+                    </div>
+                </div>
+                <div class="text-end lh-sm">
+                    <div class="small fw-bold">{{ appointment.appointment_date }}</div>
+                    <small class="text-white-50" style="font-size: 0.75rem;">{{ appointment.appointment_time }}</small>
+                </div>
+            </div>
 
-</title>
+            <!-- Compact Form -->
+            <div class="card-body p-4">
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="diagnosis" class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Diagnosis</label>
+                            <textarea name="diagnosis" id="diagnosis" rows="1" class="form-control bg-light border-0 shadow-none" placeholder="e.g., Viral Pharyngitis" required></textarea>
+                        </div>
 
-</head>
+                        <div class="col-12">
+                            <label for="medicines" class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Medicines</label>
+                            <textarea name="medicines" id="medicines" rows="2" class="form-control bg-light border-0 shadow-none" placeholder="e.g., Amoxicillin 500mg, Paracetamol 650mg" required></textarea>
+                        </div>
 
-<body>
+                        <div class="col-12">
+                            <label for="dosage" class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Dosage Instructions</label>
+                            <textarea name="dosage" id="dosage" rows="2" class="form-control bg-light border-0 shadow-none" placeholder="e.g., 1 tablet after meals (Twice a day for 5 days)" required></textarea>
+                        </div>
 
-<h2>
+                        <div class="col-12">
+                            <label for="advice" class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Advice / Precautions</label>
+                            <textarea name="advice" id="advice" rows="1" class="form-control bg-light border-0 shadow-none" placeholder="e.g., Drink plenty of warm fluids"></textarea>
+                        </div>
 
-Prescription
+                        <div class="col-md-6 mt-3">
+                            <label for="next_visit" class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Follow-up Date (Optional)</label>
+                            <input type="date" name="next_visit" id="next_visit" class="form-control bg-light border-0 shadow-none">
+                        </div>
+                    </div>
 
-</h2>
+                    <div class="d-flex justify-content-end mt-4 pt-3 border-top">
+                        <a href="/appointment/doctor-appointments/" class="btn btn-light btn-sm fw-bold px-4 rounded-pill me-2">Cancel</a>
+                        <button type="submit" class="btn btn-gradient btn-sm fw-bold px-4 rounded-pill">
+                            <i class="fa-solid fa-check me-1"></i> Save Prescription
+                        </button>
+                    </div>
 
-<h3>
-
-Patient :
-
-{{ appointment.patient.first_name }}
-
-{{ appointment.patient.last_name }}
-
-</h3>
-
-<form method="POST">
-
-{% csrf_token %}
-
-<label>
-
-Diagnosis
-
-</label>
-
-<br>
-
-<textarea
-name="diagnosis">
-</textarea>
-
-<br><br>
-
-<label>
-
-Medicines
-
-</label>
-
-<br>
-
-<textarea
-name="medicines">
-</textarea>
-
-<br><br>
-
-<label>
-
-Dosage
-
-</label>
-
-<br>
-
-<textarea
-name="dosage">
-</textarea>
-
-<br><br>
-
-<label>
-
-Advice
-
-</label>
-
-<br>
-
-<textarea
-name="advice">
-</textarea>
-
-<br><br>
-
-<label>
-
-Next Visit
-
-</label>
-
-<br>
-
-<input
-type="date"
-name="next_visit">
-
-<br><br>
-
-<button>
-
-Save Prescription
-
-</button>
-
-</form>
-
-</body>
-
-</html>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

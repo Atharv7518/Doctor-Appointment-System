@@ -1,74 +1,147 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Doctor Registration</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
-<h2>Doctor Registration</h2>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/theme.css' %}">
+{% endblock %}
 
-{% if success %}
-<p style="color:green;">
-    {{ success }}
-</p>
-{% endif %}
+{% block title %}Provider Registration | Vaidyam{% endblock %}
 
-<form method="POST">
-    {% csrf_token %}
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            
+            <div class="card border-0 shadow-tight rounded-3 overflow-hidden">
+                <!-- Bulletproof High-Contrast Header -->
+                <div class="card-header bg-primary text-white p-4 border-0 text-center">
+                    <h4 class="mb-0 fw-bolder text-white tracking-wide">
+                        <i class="fa-solid fa-user-doctor me-2"></i> Provider Registration
+                    </h4>
+                </div>
+                
+                <div class="card-body p-4 p-md-5">
+                    
+                    <!-- Success Message Alert -->
+                    {% if success %}
+                    <div class="alert alert-success py-2 px-3 small fw-bold mb-4 border-0 rounded-3 d-flex align-items-center" role="alert">
+                        <i class="fa-solid fa-circle-check fa-lg me-2"></i> 
+                        {{ success }}
+                        <a href="/doctor/login/" class="ms-auto text-success text-decoration-underline fw-bold">Login Now</a>
+                    </div>
+                    {% endif %}
 
-    <label>First Name</label><br>
-    <input type="text" name="first_name" required><br><br>
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <!-- Compact Form Grid -->
+                        <div class="row g-3">
+                            
+                            <!-- Personal Details -->
+                            <div class="col-12 mb-2 border-bottom pb-2">
+                                <h6 class="fw-bold text-muted text-uppercase tracking-wide small mb-0">Personal Details</h6>
+                            </div>
 
-    <label>Last Name</label><br>
-    <input type="text" name="last_name" required><br><br>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">First Name</label>
+                                <input type="text" name="first_name" class="form-control bg-light border-0 shadow-none" placeholder="First Name" required>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Last Name</label>
+                                <input type="text" name="last_name" class="form-control bg-light border-0 shadow-none" placeholder="Last Name" required>
+                            </div>
 
-    <label>Gender</label><br>
-    <select name="gender" required>
-        <option value="">--Select Gender--</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-    </select><br><br>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Gender</label>
+                                <select name="gender" class="form-select bg-light border-0 shadow-none" required>
+                                    <option value="" disabled selected>-- Select --</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
 
-    <label>Specialization</label><br>
-    <select name="specialization" required>
-        <option value="">--Select Specialization--</option>
-        <option value="Cardiologist">Cardiologist</option>
-        <option value="Dermatologist">Dermatologist</option>
-        <option value="Neurologist">Neurologist</option>
-        <option value="Orthopedic">Orthopedic</option>
-        <option value="Pediatrician">Pediatrician</option>
-        <option value="Dentist">Dentist</option>
-        <option value="General Physician">General Physician</option>
-    </select><br><br>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Phone Number</label>
+                                <input type="text" name="phone" class="form-control bg-light border-0 shadow-none" placeholder="+1 (555) 000-0000" required>
+                            </div>
 
-    <label>Qualification</label><br>
-    <input type="text" name="qualification" required><br><br>
+                            <!-- Professional Details -->
+                            <div class="col-12 mt-4 mb-2 border-bottom pb-2">
+                                <h6 class="fw-bold text-muted text-uppercase tracking-wide small mb-0">Professional Details</h6>
+                            </div>
 
-    <label>Experience (Years)</label><br>
-    <input type="number" name="experience" required><br><br>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Specialization</label>
+                                <select name="specialization" class="form-select bg-light border-0 shadow-none" required>
+                                    <option value="" disabled selected>-- Select Specialization --</option>
+                                    <option value="Cardiologist">Cardiologist</option>
+                                    <option value="Dermatologist">Dermatologist</option>
+                                    <option value="Neurologist">Neurologist</option>
+                                    <option value="Orthopedic">Orthopedic</option>
+                                    <option value="Pediatrician">Pediatrician</option>
+                                    <option value="Dentist">Dentist</option>
+                                    <option value="General Physician">General Physician</option>
+                                </select>
+                            </div>
 
-    <label>Phone</label><br>
-    <input type="text" name="phone" required><br><br>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Qualification</label>
+                                <input type="text" name="qualification" class="form-control bg-light border-0 shadow-none" placeholder="e.g. MBBS, MD" required>
+                            </div>
 
-    <label>Email</label><br>
-    <input type="email" name="email" required><br><br>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Experience (Years)</label>
+                                <input type="number" name="experience" class="form-control bg-light border-0 shadow-none" placeholder="e.g. 5" required>
+                            </div>
 
-    <label>Password</label><br>
-    <input type="password" name="password" required><br><br>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Consultation Fee ($)</label>
+                                <input type="number" step="0.01" name="consultation_fee" class="form-control bg-light border-0 shadow-none" placeholder="e.g. 150.00" required>
+                            </div>
 
-    <label>Consultation Fee</label><br>
-    <input type="number" step="0.01" name="consultation_fee" required><br><br>
+                            <!-- Availability & Security -->
+                            <div class="col-12 mt-4 mb-2 border-bottom pb-2">
+                                <h6 class="fw-bold text-muted text-uppercase tracking-wide small mb-0">Availability & Security</h6>
+                            </div>
 
-    <label>Available Days</label><br>
-    <input type="text" name="available_days" placeholder="Mon-Fri" required><br><br>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Available Days</label>
+                                <input type="text" name="available_days" class="form-control bg-light border-0 shadow-none" placeholder="e.g. Mon-Fri" required>
+                            </div>
 
-    <label>Available Time</label><br>
-    <input type="text" name="available_time" placeholder="10:00 AM - 5:00 PM" required><br><br>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Available Time</label>
+                                <input type="text" name="available_time" class="form-control bg-light border-0 shadow-none" placeholder="e.g. 10:00 AM - 5:00 PM" required>
+                            </div>
 
-    <button type="submit">Register</button>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Email Address</label>
+                                <input type="email" name="email" class="form-control bg-light border-0 shadow-none" placeholder="doctor@vaidyam.com" required>
+                            </div>
 
-</form>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Password</label>
+                                <input type="password" name="password" class="form-control bg-light border-0 shadow-none" placeholder="••••••••" required>
+                            </div>
 
-</body>
-</html>
+                            <!-- Actions -->
+                            <div class="col-12 mt-5 text-center">
+                                <button type="submit" class="btn btn-primary btn-gradient fw-bold px-5 py-2 rounded-pill w-100 mb-3 text-white">
+                                    Complete Registration
+                                </button>
+                                <p class="text-muted small fw-medium mb-0">
+                                    Already a provider? <a href="/doctor/login/" class="text-primary text-decoration-none fw-bold">Log in here</a>
+                                </p>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

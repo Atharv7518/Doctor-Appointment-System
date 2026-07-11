@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/landing.css' %}">
+
+<!-- Hidden data bridge for JavaScript -->
+<div id="page-data" data-home-url="{% url 'home' %}" class="visually-hidden" aria-hidden="true"></div>
+
+<!-- Bright & Visible Medical Splash Screen -->
+<div id="splash-screen" role="dialog" aria-modal="true" aria-label="Loading Vaidyam">
+    
+    <!-- Bright Medical Background Gradients -->
+    <div class="bg-glow top-left"></div>
+    <div class="bg-glow bottom-right"></div>
+    
+    <div class="content-container">
+        
+        <!-- Animated Hospital Cross Logo -->
+        <div class="logo-container">
+            <div class="logo-glow"></div>
+            <svg viewBox="0 0 120 120" class="hospital-cross">
+                <!-- Vertical Indigo Pill -->
+                <rect x="42" y="15" width="36" height="90" rx="18" class="cross-part vertical-pill" />
+                <!-- Horizontal Emerald Pill -->
+                <rect x="15" y="42" width="90" height="36" rx="18" class="cross-part horizontal-pill" />
+                <!-- Center Heartbeat Overlay -->
+                <path d="M 35 60 L 45 60 L 55 40 L 65 80 L 75 60 L 85 60" class="logo-heartbeat" />
+            </svg>
+        </div>
+
+        <!-- High-Visibility Typography -->
+        <h1 class="brand-title">VAIDYAM</h1>
+        <p class="brand-subtitle">Modern Healthcare Network</p>
+
+        <!-- Loading Indicator -->
+        <div class="loading-section">
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+            <div class="loading-text" id="status-label">Initializing system...</div>
+        </div>
+
+    </div>
+
+</div>
+
+<noscript>
+    <style>
+        #splash-screen { display: none !important; }
+        .noscript-fallback {
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            height: 100vh; text-align: center; background-color: #FFFFFF; color: #0F172A;
+        }
+    </style>
+    <div class="noscript-fallback">
+        <h2>Loading Vaidyam...</h2>
+        <a href="{% url 'home' %}" class="btn btn-primary mt-3">Continue</a>
+    </div>
+</noscript>
+
+<script src="{% static 'js/landing.js' %}"></script>
+{% endblock %}

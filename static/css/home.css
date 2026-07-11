@@ -1,0 +1,125 @@
+/* ==========================================================================
+   Vaidyam Homepage - Presentation/Vibrant UI
+   ========================================================================== */
+:root {
+  /* Vibrant Palette */
+  --primary: #4F46E5;       /* Deep Indigo */
+  --primary-hover: #4338CA;
+  --accent: #10B981;        /* Emerald Green */
+  --text-dark: #0F172A;     /* Slate 900 */
+  --text-muted: #64748B;
+  --bg-light: #F8FAFC;      /* Crisp Off-white */
+  
+  --shadow-tight: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-float: 0 10px 25px -5px rgba(79, 70, 229, 0.15);
+}
+
+/* Base Typographic Adjustments for tighter spacing */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--text-dark);
+  line-height: 1.4; /* Tighter line height */
+  background-color: #FFFFFF;
+}
+
+.bg-light-theme { background-color: var(--bg-light); }
+.tracking-wide { letter-spacing: 0.05em; }
+.text-accent { color: var(--accent); }
+.text-purple { color: #8B5CF6; }
+
+/* Gradients */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient-indigo { background: linear-gradient(135deg, #4F46E5, #8B5CF6); }
+.bg-gradient-emerald { background: linear-gradient(135deg, #10B981, #34D399); }
+.bg-gradient-rose { background: linear-gradient(135deg, #E11D48, #FB7185); }
+.bg-gradient-ocean { background: linear-gradient(135deg, #0284C7, #38BDF8); }
+
+/* Buttons & Badges */
+.badge-accent {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+  border: none;
+  transition: all 0.2s ease;
+}
+.btn-gradient:hover {
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-float);
+}
+
+/* Avatar Initials (Replacing Images) */
+.avatar-initial {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Custom Search Input Group (Compact) */
+.input-group-custom {
+  display: flex;
+  align-items: center;
+}
+.input-group-custom input:focus {
+  outline: none;
+}
+
+/* Cards */
+.hover-card {
+  background: white;
+  border-color: #E2E8F0 !important;
+  box-shadow: var(--shadow-tight);
+  transition: all 0.2s ease;
+}
+.hover-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary) !important;
+  box-shadow: var(--shadow-float);
+}
+
+/* Background Glow (Replaces Hero Image) */
+.hero-section {
+  position: relative;
+  background-color: #FFFFFF;
+}
+.glow-orb {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60vw;
+  height: 60vw;
+  max-width: 800px;
+  max-height: 800px;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, rgba(16, 185, 129, 0.03) 40%, transparent 70%);
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Snappy Animations for Presentation */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.reveal-up.active {
+  opacity: 1;
+  transform: translateY(0);
+}

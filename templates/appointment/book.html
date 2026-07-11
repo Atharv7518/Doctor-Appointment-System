@@ -1,113 +1,72 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Book Appointment</title>
-</head>
+{% extends 'layouts/patient_base.html' %}
+{% load static %}
 
-<body>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/theme.css' %}">
+{% endblock %}
 
-    <form method="GET">
+{% block title %}Book Appointment | Vaidyam{% endblock %}
 
-<label>Search Doctor</label>
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-tight rounded-3 overflow-hidden">
+                
+                <!-- Vibrant, Compact Header -->
+                <div class="card-header bg-gradient-indigo text-white p-3 border-0 d-flex align-items-center">
+                    <i class="fa-solid fa-calendar-plus fa-lg me-2"></i>
+                    <h5 class="mb-0 fw-bold tracking-wide">Book Appointment</h5>
+                </div>
+                
+                <div class="card-body p-4">
+                    {% if error %}
+                    <div class="alert alert-danger py-2 px-3 small fw-bold mb-3 border-0 rounded-3" role="alert">
+                        <i class="fa-solid fa-circle-exclamation me-2"></i> {{ error }}
+                    </div>
+                    {% endif %}
 
-<select name="specialization">
+                    <form method="POST" action="{% url 'book_appointment' %}">
+                        {% csrf_token %}
+                        
+                        <!-- Tight Grid (g-3 instead of g-4) -->
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="doctor" class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Select Doctor</label>
+                                <select name="doctor" id="doctor" class="form-select bg-light border-0 shadow-none" required>
+                                    <option value="" disabled selected>Choose a provider...</option>
+                                    {% for doc in doctors %}
+                                        <option value="{{ doc.doctor_id }}">Dr. {{ doc.first_name }} {{ doc.last_name }} ({{ doc.specialization }}) - ${{ doc.consultation_fee }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
 
-<option value="">All</option>
+                            <div class="col-md-6">
+                                <label for="appointment_date" class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Date</label>
+                                <input type="date" name="appointment_date" id="appointment_date" class="form-control bg-light border-0 shadow-none" required>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="appointment_time" class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Time</label>
+                                <input type="time" name="appointment_time" id="appointment_time" class="form-control bg-light border-0 shadow-none" required>
+                            </div>
 
-<option value="Cardiologist">Cardiologist</option>
+                            <div class="col-12">
+                                <label for="symptoms" class="form-label fw-bold text-dark small mb-1 tracking-wide text-uppercase">Symptoms</label>
+                                <textarea name="symptoms" id="symptoms" rows="2" class="form-control bg-light border-0 shadow-none" placeholder="Briefly describe your symptoms..." required></textarea>
+                            </div>
 
-<option value="Dermatologist">Dermatologist</option>
-
-<option value="Neurologist">Neurologist</option>
-
-<option value="Orthopedic">Orthopedic</option>
-
-<option value="Dentist">Dentist</option>
-
-<option value="General Physician">General Physician</option>
-
-</select>
-
-<button type="submit">
-
-Search
-
-</button>
-
-</form>
-
-<hr>
-
-<h2>Book Appointment</h2>
-
-{% if success %}
-<p style="color:green;">
-{{ success }}
-</p>
-{% endif %}
-
-<form method="POST">
-
-{% csrf_token %}
-
-<label>Select Doctor</label><br>
-
-<select name="doctor">
-
-{% for doctor in doctors %}
-
-<option value="{{ doctor.doctor_id }}">
-
-Dr. {{ doctor.first_name }} {{ doctor.last_name }}
-
-({{ doctor.specialization }})
-
-</option>
-
-{% endfor %}
-
-</select>
-
-<br><br>
-
-<label>Date</label><br>
-
-<input type="date"
-name="appointment_date">
-
-<br><br>
-
-<label>Time</label><br>
-
-<input type="time"
-name="appointment_time">
-
-<br><br>
-
-<label>Symptoms</label><br>
-
-<textarea
-name="symptoms"></textarea>
-
-<br><br>
-
-<button>
-
-Book Appointment
-
-</button>
-
-</form>
-
-{% if error %}
-
-<p style="color:red">
-
-{{ error }}
-
-</p>
-
-{% endif %}
-
-</body>
-</html>
+                            <div class="col-12 mt-4 text-end">
+                                <a href="/patient/dashboard/" class="btn btn-light btn-sm fw-bold px-3 rounded-pill me-2">Cancel</a>
+                                <button type="submit" class="btn btn-gradient btn-sm fw-bold px-4 rounded-pill">
+                                    Confirm Booking
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

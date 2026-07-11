@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="hero-section text-center position-relative overflow-hidden py-4">
+    <div class="glow-orb"></div>
+    
+    <div class="container position-relative z-1 pt-4 pb-3">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 reveal-up">
+                <span class="badge badge-accent mb-3 px-3 py-2 rounded-pill fw-bold text-uppercase tracking-wide">
+                    <i class="fa-solid fa-bolt me-1"></i> Instant Healthcare Access
+                </span>
+                <h1 class="display-4 fw-bolder text-dark mb-3 lh-sm">
+                    Find the right doctor and <br>
+                    <span class="text-gradient">book instantly.</span>
+                </h1>
+                <p class="lead text-secondary mb-4 lh-base fs-6 px-md-5">
+                    Search trusted professionals, view real patient ratings, and schedule your visit today—no phone calls required.
+                </p>
+                
+                <div class="search-card bg-white p-2 rounded-pill shadow-lg border mx-auto" style="max-width: 700px;">
+                    <form class="d-flex align-items-center" action="/search/" method="GET" id="hero-search-form">
+                        <div class="input-group-custom flex-grow-1 border-end px-3">
+                            <i class="fa-solid fa-magnifying-glass text-muted small"></i>
+                            <input type="text" name="q" class="form-control border-0 shadow-none bg-transparent form-control-sm py-2" placeholder="Doctor, condition, or specialty" required>
+                        </div>
+                        <div class="input-group-custom flex-grow-1 px-3">
+                            <i class="fa-solid fa-location-dot text-muted small"></i>
+                            <input type="text" name="loc" class="form-control border-0 shadow-none bg-transparent form-control-sm py-2" placeholder="Location">
+                        </div>
+                        <button type="submit" class="btn btn-gradient rounded-pill px-4 py-2 fw-bold">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="specialties" class="py-4 bg-light-theme border-top border-bottom">
+    <div class="container reveal-up">
+        <div class="d-flex justify-content-between align-items-end mb-3">
+            <h3 class="fw-bold text-dark mb-0">Specialties</h3>
+            <a href="/specialties/" class="text-accent fw-bold text-decoration-none small">View All <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="row g-3">
+            <div class="col-6 col-md-4 col-lg-2">
+                <a href="/specialties/cardiology" class="text-decoration-none">
+                    <div class="hover-card p-3 text-center h-100 rounded-3">
+                        <i class="fa-solid fa-heart-pulse fa-2x text-danger mb-2 d-block"></i>
+                        <span class="text-dark fw-bold small">Cardiology</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <a href="/specialties/dentistry" class="text-decoration-none">
+                    <div class="hover-card p-3 text-center h-100 rounded-3">
+                        <i class="fa-solid fa-tooth fa-2x text-info mb-2 d-block"></i>
+                        <span class="text-dark fw-bold small">Dentistry</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <a href="/specialties/pediatrics" class="text-decoration-none">
+                    <div class="hover-card p-3 text-center h-100 rounded-3">
+                        <i class="fa-solid fa-child-reaching fa-2x text-warning mb-2 d-block"></i>
+                        <span class="text-dark fw-bold small">Pediatrics</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <a href="/specialties/general" class="text-decoration-none">
+                    <div class="hover-card p-3 text-center h-100 rounded-3">
+                        <i class="fa-solid fa-stethoscope fa-2x text-primary mb-2 d-block"></i>
+                        <span class="text-dark fw-bold small">Primary Care</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <a href="/specialties/dermatology" class="text-decoration-none">
+                    <div class="hover-card p-3 text-center h-100 rounded-3">
+                        <i class="fa-solid fa-hand-dots fa-2x text-success mb-2 d-block"></i>
+                        <span class="text-dark fw-bold small">Dermatology</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <a href="/specialties/neurology" class="text-decoration-none">
+                    <div class="hover-card p-3 text-center h-100 rounded-3">
+                        <i class="fa-solid fa-brain fa-2x text-purple mb-2 d-block"></i>
+                        <span class="text-dark fw-bold small">Neurology</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="doctors" class="py-4">
+    <div class="container reveal-up">
+        <h3 class="fw-bold text-dark mb-3">Top Rated Doctors</h3>
+        
+        <div class="row g-3">
+            <div class="col-md-6 col-lg-3">
+                <div class="hover-card p-3 border rounded-3 h-100 d-flex flex-column">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="avatar-initial bg-gradient-indigo text-white fw-bold fs-5 me-3">SJ</div>
+                        <div>
+                            <h6 class="fw-bold text-dark mb-0">Dr. Sarah Jenkins</h6>
+                            <small class="text-accent fw-bold">Cardiologist</small>
+                        </div>
+                    </div>
+                    <div class="mb-3 text-warning small d-flex align-items-center">
+                        <i class="fa-solid fa-star me-1"></i> 4.9 <span class="text-muted ms-1">(120 reviews)</span>
+                    </div>
+                    <a href="/doctor/sarah-jenkins" class="btn btn-outline-dark btn-sm w-100 mt-auto fw-bold rounded-pill">View Profile</a>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="hover-card p-3 border rounded-3 h-100 d-flex flex-column">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="avatar-initial bg-gradient-emerald text-white fw-bold fs-5 me-3">MC</div>
+                        <div>
+                            <h6 class="fw-bold text-dark mb-0">Dr. Michael Chen</h6>
+                            <small class="text-accent fw-bold">Dentist</small>
+                        </div>
+                    </div>
+                    <div class="mb-3 text-warning small d-flex align-items-center">
+                        <i class="fa-solid fa-star me-1"></i> 4.8 <span class="text-muted ms-1">(85 reviews)</span>
+                    </div>
+                    <a href="/doctor/michael-chen" class="btn btn-outline-dark btn-sm w-100 mt-auto fw-bold rounded-pill">View Profile</a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="hover-card p-3 border rounded-3 h-100 d-flex flex-column">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="avatar-initial bg-gradient-rose text-white fw-bold fs-5 me-3">ET</div>
+                        <div>
+                            <h6 class="fw-bold text-dark mb-0">Dr. Emily Torres</h6>
+                            <small class="text-accent fw-bold">Pediatrician</small>
+                        </div>
+                    </div>
+                    <div class="mb-3 text-warning small d-flex align-items-center">
+                        <i class="fa-solid fa-star me-1"></i> 5.0 <span class="text-muted ms-1">(200 reviews)</span>
+                    </div>
+                    <a href="/doctor/emily-torres" class="btn btn-outline-dark btn-sm w-100 mt-auto fw-bold rounded-pill">View Profile</a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="hover-card p-3 border rounded-3 h-100 d-flex flex-column">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="avatar-initial bg-gradient-ocean text-white fw-bold fs-5 me-3">JW</div>
+                        <div>
+                            <h6 class="fw-bold text-dark mb-0">Dr. James Wilson</h6>
+                            <small class="text-accent fw-bold">General Physician</small>
+                        </div>
+                    </div>
+                    <div class="mb-3 text-warning small d-flex align-items-center">
+                        <i class="fa-solid fa-star me-1"></i> 4.7 <span class="text-muted ms-1">(150 reviews)</span>
+                    </div>
+                    <a href="/doctor/james-wilson" class="btn btn-outline-dark btn-sm w-100 mt-auto fw-bold rounded-pill">View Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
