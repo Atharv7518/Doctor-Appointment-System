@@ -3,6 +3,7 @@ from django.urls import path, include
 from django.views.generic.base import RedirectView # Add this import
 from django.conf import settings # Add this import
 from django.conf.urls.static import static # Add this import
+from django.contrib.staticfiles.storage import staticfiles_storage
 from . import views
 
 urlpatterns = [
@@ -19,7 +20,8 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     
-    path('favicon.ico', RedirectView.as_view(url='/static/favicon.png', permanent=True)),
-    path('favicon.png', RedirectView.as_view(url='/static/favicon.png', permanent=True))
+    # REMOVE THESE LINES FROM urls.py
+path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('favicon.png')), name='favicon'),
+path('favicon.png', RedirectView.as_view(url=staticfiles_storage.url('favicon.png')), name='favicon_png'),
 
 ]
