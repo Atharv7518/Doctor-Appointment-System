@@ -98,32 +98,17 @@
 
     <!-- 3. YOUR INTERCEPTOR SCRIPT (UPDATED) -->
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const modalElement = document.getElementById('comingSoonModal');
     if (!modalElement) return; 
 
     const comingSoonModal = new bootstrap.Modal(modalElement);
 
-    // 1. Catch links
-    const unbuiltLinks = document.querySelectorAll(`
-        a[href="#"]:not([data-bs-toggle]), 
-        .coming-soon, 
-        a[href^="/specialties/"], 
-        a[href^="/doctor/"]
-    `);
+    // Only block links explicitly marked with 'coming-soon' or '#'
+    const blockedElements = document.querySelectorAll('a[href="#"]:not([data-bs-toggle]), .coming-soon');
 
-    unbuiltLinks.forEach(link => {
+    blockedElements.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault(); 
-            comingSoonModal.show(); 
-        });
-    });
-
-    // 2. Catch forms
-    const unbuiltForms = document.querySelectorAll('form[action="/search/"], form.coming-soon-form');
-
-    unbuiltForms.forEach(form => {
-        form.addEventListener('submit', function(e) {
             e.preventDefault(); 
             comingSoonModal.show(); 
         });
