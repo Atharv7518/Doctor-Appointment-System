@@ -24,7 +24,6 @@
                         <a class="nav-link fw-bold text-primary" href="/patient/dashboard/">Patient Dashboard</a>
                     </li>
                     <li class="nav-item dropdown ms-2 mt-2 mt-lg-0">
-                        <!-- Proper Bootstrap Dropdown Toggle -->
                         <a class="btn btn-light rounded-pill px-3 py-2 text-dark fw-bold border shadow-sm dropdown-toggle d-flex align-items-center" href="#" id="patientDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="avatar-initial bg-gradient-indigo text-white me-2" style="width: 24px; height: 24px; font-size: 0.7rem;">
                                 {{ request.session.patient_name|slice:":1"|upper }}
@@ -35,7 +34,8 @@
                             <li><a class="dropdown-item fw-medium py-2" href="/appointment/my-appointments/"><i class="fa-solid fa-list-check me-2 text-muted"></i>My Appointments</a></li>
                             <li><a class="dropdown-item fw-medium py-2" href="/prescription/view/"><i class="fa-solid fa-file-prescription me-2 text-muted"></i>Prescriptions</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item fw-bold text-danger py-2" href="/patient/logout/"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
+                            <!-- Added ignore-modal -->
+                            <li><a class="dropdown-item fw-bold text-danger py-2 ignore-modal" href="/patient/logout/"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
                         </ul>
                     </li>
 
@@ -45,7 +45,6 @@
                         <a class="nav-link fw-bold text-primary" href="/doctor/dashboard/">Provider Dashboard</a>
                     </li>
                     <li class="nav-item dropdown ms-2 mt-2 mt-lg-0">
-                        <!-- Proper Bootstrap Dropdown Toggle -->
                         <a class="btn btn-light rounded-pill px-3 py-2 text-dark fw-bold border shadow-sm dropdown-toggle d-flex align-items-center" href="#" id="doctorDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="avatar-initial bg-gradient-emerald text-white me-2" style="width: 24px; height: 24px; font-size: 0.7rem;">
                                 Dr
@@ -55,20 +54,24 @@
                         <ul class="dropdown-menu dropdown-menu-end border-0 shadow-float rounded-3 mt-2" aria-labelledby="doctorDropdown">
                             <li><a class="dropdown-item fw-medium py-2" href="/appointment/doctor-appointments/"><i class="fa-solid fa-calendar-check me-2 text-muted"></i>Schedule</a></li>
                             <li><hr class="dropdown-divider"></li>
+                            <!-- Added ignore-modal -->
                             <li><a class="dropdown-item fw-bold text-danger py-2 ignore-modal" href="/doctor/logout/"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
                         </ul>
                     </li>
 
                 <!-- SCENARIO 3: NOBODY IS LOGGED IN (GUEST VIEW) -->
                 {% else %}
+                    <!-- Added ignore-modal to Login -->
                     <li class="nav-item ms-2 mt-2 mt-lg-0">
-                        <a class="btn btn-outline-primary px-4 rounded-pill fw-bold" href="/login/">Login</a>
+                        <a class="btn btn-outline-primary px-4 rounded-pill fw-bold ignore-modal" href="/login/">Login</a>
                     </li>
+                    <!-- Added ignore-modal to Register -->
                     <li class="nav-item ms-2 mt-2 mt-lg-0">
-                        <a class="btn btn-primary bg-gradient-indigo border-0 text-white px-4 rounded-pill fw-bold shadow-sm" href="/register/">Register</a>
+                        <a class="btn btn-primary bg-gradient-indigo border-0 text-white px-4 rounded-pill fw-bold shadow-sm ignore-modal" href="/register/">Register</a>
                     </li>
                     <li class="nav-item ms-3 mt-3 mt-lg-0 d-flex align-items-center border-start ps-3">
-                        <a class="text-muted small text-decoration-none fw-bold hover-primary" href="/doctor/login/">
+                        <!-- Added ignore-modal -->
+                        <a class="text-muted small text-decoration-none fw-bold hover-primary ignore-modal" href="/doctor/login/">
                             <i class="fa-solid fa-user-doctor me-1"></i> For Providers
                         </a>
                     </li>
