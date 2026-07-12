@@ -48,6 +48,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- Safe Interceptor Script -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const modalElement = document.getElementById('comingSoonModal');
@@ -55,30 +56,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const comingSoonModal = new bootstrap.Modal(modalElement);
 
-    // This catches everything that SHOULD be blocked
-    const unbuiltLinks = document.querySelectorAll(`
-        a[href="#"]:not([data-bs-toggle]), 
-        .coming-soon, 
-        a[href^="/specialties/"], 
-        a[href^="/doctor/"]
-    `);
+    // WE ONLY BLOCK LINKS WITH class="coming-soon" OR href="#"
+    // We completely removed the rule that blocks "/doctor/"
+    const blockedElements = document.querySelectorAll('a[href="#"]:not([data-bs-toggle]), .coming-soon');
 
-    unbuiltLinks.forEach(link => {
+    blockedElements.forEach(link => {
         link.addEventListener('click', function(e) {
-            // IF the link has 'ignore-modal', we do nothing and let the link work!
-            if (this.classList.contains('ignore-modal')) {
-                return;
-            }
-            
-            // Otherwise, block it and show the modal
             e.preventDefault(); 
             comingSoonModal.show(); 
         });
     });
 
-    // Catch forms
-    const unbuiltForms = document.querySelectorAll('form[action="/search/"], form.coming-soon-form');
-    unbuiltForms.forEach(form => {
+    const blockedForms = document.querySelectorAll('form.coming-soon-form');
+    blockedForms.forEach(form => {
         form.addEventListener('submit', function(e) {
             e.preventDefault(); 
             comingSoonModal.show(); 

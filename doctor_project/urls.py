@@ -14,9 +14,6 @@ urlpatterns = [
     path('patient/', include('patient.urls')),
 
     path('doctor/', include('doctor.urls')),
-    
-    path('doctor/login/', doctor_views.login_view, name='doctor_login'),
-    path('doctor/logout/', doctor_views.logout_view, name='doctor_logout'),
 
     path('appointment/', include('appointment.urls')),
 
