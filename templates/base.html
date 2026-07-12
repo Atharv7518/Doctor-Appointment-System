@@ -56,9 +56,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const comingSoonModal = new bootstrap.Modal(modalElement);
 
-    // WE ONLY BLOCK LINKS WITH class="coming-soon" OR href="#"
-    // We completely removed the rule that blocks "/doctor/"
-    const blockedElements = document.querySelectorAll('a[href="#"]:not([data-bs-toggle]), .coming-soon');
+    // This catches:
+    // 1. Links with href="#"
+    // 2. Anything you manually add class="coming-soon" to
+    // 3. Any link starting with /specialties/ (which is causing the 404)
+    // NOTE: /doctor/, /patient/, and /admin/ are NOT in this list, so they are 100% safe.
+    const blockedElements = document.querySelectorAll(`
+        a[href="#"]:not([data-bs-toggle]), 
+        .coming-soon, 
+        a[href^="/specialties/"]
+    `);
 
     blockedElements.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -67,7 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    const blockedForms = document.querySelectorAll('form.coming-soon-form');
+    // This catches the unfinished search form
+    const blockedForms = document.querySelectorAll('form[action="/search/"], form.coming-soon-form');
     blockedForms.forEach(form => {
         form.addEventListener('submit', function(e) {
             e.preventDefault(); 
